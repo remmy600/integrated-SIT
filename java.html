@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>XYZ Currency Exchange | EAV KIVUMU TSS</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f7f8;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: purple;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .converter-box {
+       background-color: white;           /* Solid white background */
+  padding: 30px;            /* Dark border for strong rectangular frame */
+  border-radius: 0px;                /* No rounded corners (perfect rectangle) */
+  box-shadow: none;                  /* Remove any soft shadows */
+  width: 1500px; 
+  height: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+    }
+
+    .converter-box label {
+      font-weight: 600;
+    }
+
+    .converter-box input,
+    .converter-box select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      width: 100%;
+    }
+
+    .converter-box button {
+      background-color: purple;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .converter-box button:hover {
+      background-color: #084298;
+    }
+
+    .result {
+      margin-top: 10px;
+      font-size: 18px;
+    }
+
+    footer {
+      background-color: lightsalmon;
+      padding: 15px;
+      text-align: center;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>XYZ-COMPANY</h1>
+    <p>CURRENCY EXCHANGE web page</p>
+  </header>
+
+  <main>
+    <div class="converter-box">
+      <label for="amount">Amount</label>
+      <input type="number" id="amount" placeholder="Enter amount" />
+
+      <label for="fromCurrency">From</label>
+      <select id="fromCurrency">
+        <option value="USD">USD - $</option>
+        <option value="EUR">EUR - €</option>
+        <option value="RWF">Rwanda - RWF</option>
+      </select>
+
+      <label for="toCurrency">To</label>
+      <select id="toCurrency">
+        <option value="RWF">Rwanda - RWF</option>
+        <option value="USD">USD - $</option>
+        <option value="EUR">EUR - €</option>
+      </select>
+
+      <button id="convertBtn">Convert</button>
+      <div class="result">
+        <strong>Result:</strong> <span id="resultValue">0</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2023 Basic JavaScript converter. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const rates = {
+      USD: { RWF: 1250, EUR: 0.92, USD: 1 },
+      EUR: { RWF: 1350, USD: 1.09, EUR: 1 },
+      RWF: { USD: 1 / 1250, EUR: 1 / 1350, RWF: 1 }
+    };
+
+    document.getElementById('convertBtn').addEventListener('click', function () {
+      const amount = parseFloat(document.getElementById('amount').value);
+      const fromCurrency = document.getElementById('fromCurrency').value;
+      const toCurrency = document.getElementById('toCurrency').value;
+
+      if (isNaN(amount) || amount <= 0) {
+        alert("Please enter a valid amount.");
+        return;
+      }
+
+      const rate = rates[fromCurrency][toCurrency];
+      const result = amount * rate;
+
+      document.getElementById('resultValue').textContent = result.toFixed(2);
+    });
+  </script>
+
+</body>
+</html>
+
+
